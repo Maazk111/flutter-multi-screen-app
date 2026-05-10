@@ -247,3 +247,10 @@ This project consolidates a complete **multi-screen Flutter application** — de
 It validates expertise in **Flutter UI development**, **Dart programming**, **state management**, **input validation**, and **clean code architecture** following modern mobile development standards.
 
 📚 Built with a focus on **code quality**, **reusability**, and **interview readiness** — ready for live demonstration and code review.
+
+## 👤 Author
+
+| | |
+|---|---|
+| **Name** | Muhammad Maaz Khan |
+| **ID** | SE-221053 |
