@@ -2,15 +2,40 @@
 
 ## 📘 Overview
 
-A complete **multi-screen Flutter application** featuring **user authentication**, **form validation**, **navigation**, and **course management** — built as a **coding assessment project** demonstrating professional Flutter development skills.
+A complete **multi-screen Flutter application** featuring **user authentication**, **form validation**, **navigation**, **course management**, and **full CRUD API integration** — built as a **coding assessment project** demonstrating professional Flutter development skills.
 
 The app implements a full **registration → login → dashboard → detail** flow with **comprehensive input validation**, **separated business logic**, **reusable components**, and **clean architecture** following industry best practices.
 
-The focus is on **clean code**, **proper separation of concerns**, and **interview-ready architecture** — covering enums, custom validators, controllers, and widget reusability.
+The **Extension Assignment** adds **REST API integration** using the **JSONPlaceholder API**, implementing all four CRUD operations (Create, Read, Update, Delete) with a dedicated **service layer**, **enum-driven state management**, and proper **loading/error/success** state handling.
 
 ---
 
-💼 This project is part of my **Mobile Application Development** coursework, highlighting **Flutter UI development**, **state management**, and **multi-screen navigation proficiency**.
+💼 This project is part of my **Mobile Application Development** coursework, highlighting **Flutter UI development**, **state management**, **multi-screen navigation proficiency**, and **REST API integration**.
+
+---
+
+## 🌐 API Integration
+
+| Detail | Value |
+|--------|-------|
+| **API Used** | JSONPlaceholder — Free Fake REST API |
+| **Base URL** | `https://jsonplaceholder.typicode.com` |
+| **Endpoint** | `/posts` (mapped as courses) |
+| **Documentation** | https://jsonplaceholder.typicode.com/guide |
+| **Operations** | GET, POST, PUT, DELETE |
+
+> **Note:** JSONPlaceholder is a free fake REST API for testing and development. POST/PUT/DELETE operations are simulated — responses are valid but data is not persisted server-side. Local state is managed in-memory after each API operation.
+
+---
+
+## 🌿 Branch
+
+| Branch | Purpose |
+|--------|---------|
+| `main` | Original assessment — Auth, Forms, Navigation, Dashboard |
+| `feature/course-api-integration` | Extension — Full CRUD API integration |
+
+All CRUD API work is completed on the `feature/course-api-integration` branch as required.
 
 ---
 
@@ -18,52 +43,61 @@ The focus is on **clean code**, **proper separation of concerns**, and **intervi
 
 ```
 lib/
-├── main.dart                        # App entry point
+├── main.dart                           # App entry point
 ├── models/
-│   ├── user_model.dart              # User data class
-│   └── subject_model.dart           # Subject data class
+│   ├── user_model.dart                 # User data class
+│   ├── subject_model.dart              # Subject data class (local)
+│   └── api_course_model.dart           # API course model (NEW)
 ├── enums/
-│   └── enums.dart                   # Gender enum with labels
+│   └── enums.dart                      # Gender enum + LoadState enum (UPDATED)
 ├── utils/
-│   └── validators.dart              # Reusable static validator class
+│   └── validators.dart                 # Reusable static validator class (UPDATED)
 ├── controllers/
-│   └── auth_controller.dart         # Business logic (auth)
+│   └── auth_controller.dart            # Business logic (auth)
+├── services/
+│   └── course_service.dart             # REST API service layer (NEW)
 ├── screens/
-│   ├── registration_screen.dart     # Registration form + validation
-│   ├── login_screen.dart            # Login + remember me
-│   ├── dashboard_screen.dart        # User info + subject list
-│   └── detail_screen.dart           # Subject detail view
+│   ├── registration_screen.dart        # Registration form + validation
+│   ├── login_screen.dart               # Login + remember me
+│   ├── dashboard_screen.dart           # User info + subject list + API entry (UPDATED)
+│   ├── detail_screen.dart              # Subject detail view
+│   ├── api_courses_screen.dart         # CRUD course list screen (NEW)
+│   └── add_edit_course_screen.dart     # Create / Edit course form (NEW)
 └── widgets/
-    └── custom_text_field.dart       # Reusable text field component
+    └── custom_text_field.dart          # Reusable text field component (UPDATED)
 ```
 
 ### 🧩 Layer Separation
+
 | **Layer** | **Responsibility** |
 |-----------|-------------------|
-| **Models** | Type-safe data classes (`UserModel`, `SubjectModel`) for structured data handling. |
-| **Enums** | `Gender` enum with display labels — avoids hardcoded strings and invalid values. |
-| **Validators** | Static reusable validator class — separated from UI for testability and reuse. |
-| **Controllers** | `AuthController` handles registration, login, and user lookup logic. |
-| **Screens** | One file per screen with clean widget composition and navigation. |
-| **Widgets** | `CustomTextField` reusable component — eliminates code duplication across forms. |
+| **Models** | Type-safe data classes — `UserModel`, `SubjectModel`, `ApiCourseModel` |
+| **Enums** | `Gender` enum for dropdowns, `LoadState` enum for async state management |
+| **Validators** | Static reusable validator class — separated from UI for testability |
+| **Controllers** | `AuthController` handles registration, login, and user lookup logic |
+| **Services** | `CourseService` handles all API calls (GET, POST, PUT, DELETE) — isolated from UI |
+| **Screens** | One file per screen with clean widget composition and navigation |
+| **Widgets** | `CustomTextField` reusable component — consistent styling across all forms |
 
 ---
 
 ## 📸 Screenshots
 
 ### 🔐 Authentication Flow
+
 <p align="center">
   <img src="images/1.png" width="250" alt="Registration Screen"/>
   &nbsp;&nbsp;&nbsp;
   <img src="images/2.png" width="250" alt="Login Screen"/>
   &nbsp;&nbsp;&nbsp;
-  <img src="images/6.png" width="250" alt="Dashboard Screen"/>
+  <img src="images/11.png" width="250" alt="Dashboard Screen"/>
 </p>
 <p align="center">
-  <em>Registration Screen → Login Screen → Dashboard Screen</em>
+  <em>Registration Screen → Login Screen → Dashboard (with API Courses entry)</em>
 </p>
 
 ### 📚 Subject Detail Screens
+
 <p align="center">
   <img src="images/3.png" width="250" alt="Mobile App Development"/>
   &nbsp;&nbsp;&nbsp;
@@ -75,16 +109,49 @@ lib/
   <em>Mobile App Dev → UI/UX Design → FYP-II (AutoTestGen+)</em>
 </p>
 
+### 🌐 CRUD API Integration Screens
+
+<p align="center">
+  <img src="images/8.png" width="250" alt="API Courses List"/>
+  &nbsp;&nbsp;&nbsp;
+  <img src="images/7.png" width="250" alt="Add Course"/>
+  &nbsp;&nbsp;&nbsp;
+  <img src="images/9.png" width="250" alt="Edit Course"/>
+</p>
+<p align="center">
+  <em>API Courses List → Add Course Form → Edit Course Form</em>
+</p>
+
+<p align="center">
+  <img src="images/10.png" width="400" alt="Course Added Successfully"/>
+  &nbsp;&nbsp;&nbsp;
+  <img src="images/8.png" width="400" alt="Course Deleted"/>
+</p>
+<p align="center">
+  <em>"Course added successfully!" → "Course deleted." snackbar feedback</em>
+</p>
+
 ---
 
 ## ⚙️ Features Implemented
 
+### Original Assessment
+
 | **Screen** | **Key Features** |
 |------------|-----------------|
 | **Registration** | Full Name, Email, Password, Confirm Password, Gender dropdown with real-time validation |
-| **Login** | Email/Password authentication, show/hide password toggle (eye icon), Remember Me checkbox |
-| **Dashboard** | User profile card with avatar, dynamic subject list, tap navigation, logout with confirmation |
+| **Login** | Email/Password authentication, show/hide password toggle, Remember Me checkbox |
+| **Dashboard** | User profile card with avatar, API Courses navigation card, dynamic subject list, logout with confirmation |
 | **Detail** | Subject header with gradient banner, instructor info, course description, schedule, location |
+
+### Extension — CRUD API Integration
+
+| **Operation** | **HTTP Method** | **Endpoint** | **Behavior** |
+|--------------|----------------|-------------|-------------|
+| **Read** | `GET` | `/posts?_limit=20` | Fetches 20 courses, shows loading indicator, handles errors with retry |
+| **Create** | `POST` | `/posts` | Sends new course, updates local list at top, shows success snackbar |
+| **Update** | `PUT` | `/posts/{id}` | Pre-fills existing data, sends update, reflects changes in list |
+| **Delete** | `DELETE` | `/posts/{id}` | Confirmation dialog, removes from list on success, shows snackbar |
 
 ---
 
@@ -94,11 +161,11 @@ lib/
 |-----------|----------|
 | **Full Name** | Required, minimum 2 characters |
 | **Email** | Required, valid email format (regex validated) |
-| **Password** | Minimum 6 characters, at least 1 uppercase letter, at least 1 special character |
+| **Password** | Minimum 6 characters, at least 1 uppercase, at least 1 special character |
 | **Confirm Password** | Required, must match password field |
 | **Gender** | Required dropdown selection |
-
-All validation logic is centralized in a **custom `Validators` class** — separated from UI components for reusability and testability.
+| **Course Title** | Required, minimum 3 characters, maximum 100 characters |
+| **Course Description** | Required, minimum 10 characters |
 
 ---
 
@@ -106,21 +173,59 @@ All validation logic is centralized in a **custom `Validators` class** — separ
 
 ```
 Registration ──pushReplacement──► Login ──pushReplacement──► Dashboard ──push──► Detail
-                   ↑                           ↑                                    │
-                   │                           └────── Logout (pushReplacement) ◄───┘
-                   │
-                   └──────────── Toggle ────────────────┘
+                                                                  │
+                                                                  └──push──► ApiCoursesScreen
+                                                                                    │
+                                                                                    └──push──► AddEditCourseScreen
 ```
 
 | **Navigation Type** | **When Used** | **Why** |
 |---------------------|---------------|---------|
-| `pushReplacement` | Auth screens (Register ↔ Login ↔ Dashboard) | Prevents back-button access to unauthorized screens |
-| `push` | Dashboard → Detail | Allows natural back navigation to subject list |
-| `pushReplacement` | Logout | Clears navigation stack so user can't press back to Dashboard |
+| `pushReplacement` | Auth screens | Prevents back-button access to unauthorized screens |
+| `push` | Dashboard → Detail / API Courses | Allows natural back navigation |
+| `Navigator.pop(result)` | AddEditCourse → ApiCourses | Returns course data to caller |
 
 ---
 
-## 📚 Enrolled Subjects
+## 🔌 Service Layer — CourseService
+
+```dart
+class CourseService {
+  CourseService._(); // Prevent instantiation
+
+  static Future<List<ApiCourseModel>> fetchCourses()        // GET
+  static Future<ApiCourseModel>       createCourse(...)     // POST
+  static Future<ApiCourseModel>       updateCourse(course)  // PUT
+  static Future<void>                 deleteCourse(id)      // DELETE
+}
+```
+
+All methods include:
+- **10-second timeout** on every request
+- **TimeoutException** handling
+- **SocketException** handling (no internet)
+- **FormatException** handling (invalid response)
+- Descriptive `Exception` messages surfaced to the UI
+
+---
+
+## 📊 State Handling
+
+The `LoadState` enum drives all async UI states:
+
+```dart
+enum LoadState { loading, success, error }
+```
+
+| **State** | **UI Shown** |
+|-----------|-------------|
+| `loading` | `CircularProgressIndicator` centered |
+| `error` | Error message + Retry button |
+| `success` | Course list with edit/delete actions + Add FAB |
+
+---
+
+## 📚 Enrolled Subjects (Local Data)
 
 | **Subject** | **Instructor** | **Day** | **Timing** | **Location** |
 |-------------|---------------|---------|-----------|-------------|
@@ -134,40 +239,29 @@ Registration ──pushReplacement──► Login ──pushReplacement──►
 
 ## 🧠 Technical Highlights
 
-🔸 **Custom Validator Class — Separation of Concerns**
-*Approach:* All validation logic in a single static class with private constructor.
-*Benefit:* Reusable across screens, easy to unit test, zero UI coupling.
+🔸 **Service Layer — Full API Isolation**
+*Approach:* `CourseService` with private constructor — all HTTP logic in one place.
+*Benefit:* UI never touches `http` directly; service is independently testable.
 
-🔸 **Enum Implementation — Type-Safe Categorical Data**
-*Approach:* `Gender` enum with `label` getter for display text.
-*Benefit:* Prevents invalid values, eliminates hardcoded strings, IDE autocomplete support.
+🔸 **LoadState Enum — Declarative Async State**
+*Approach:* `switch (_loadState)` drives the entire UI tree.
+*Benefit:* Clean, exhaustive state handling — impossible to forget a case.
 
-🔸 **Controller Layer — Business Logic Isolation**
-*Approach:* `AuthController` manages user registration and login with static methods.
-*Benefit:* UI only handles presentation; logic is testable independently.
+🔸 **Local ID Management for POST**
+*Approach:* JSONPlaceholder always returns `id: 101` for POST. A `_nextLocalId` counter (starting at 1000) assigns unique IDs to locally-created courses.
+*Benefit:* Prevents ID collisions in the local list while demonstrating real POST behavior.
 
-🔸 **Reusable Widget — CustomTextField**
-*Approach:* Single configurable widget for all text input fields across the app.
-*Benefit:* Consistent styling, reduced code duplication, single point of change.
+🔸 **Pre-fill on Edit**
+*Approach:* `AddEditCourseScreen` accepts optional `ApiCourseModel?` — null = Add mode, non-null = Edit mode with controllers pre-initialized.
+*Benefit:* Single screen handles both create and update flows cleanly.
 
-🔸 **Proper Resource Disposal**
-*Approach:* All `TextEditingController` instances are disposed in `dispose()`.
-*Benefit:* Prevents memory leaks in stateful widgets.
+🔸 **mounted Guard on all async callbacks**
+*Approach:* Every `setState` after `await` checks `if (!mounted) return`.
+*Benefit:* Prevents `setState` on disposed widget errors.
 
----
-
-## 💡 Key Learnings & Skills Demonstrated
-
-| **Area** | **Skills Gained** |
-|----------|-------------------|
-| **Flutter UI Development** | Multi-screen layouts, Material Design 3, responsive forms |
-| **Form Validation** | Real-time validation, custom validators, regex-based checks |
-| **Navigation** | Named and anonymous routes, push/pushReplacement strategies |
-| **State Management** | StatefulWidget lifecycle, setState, controller pattern |
-| **Code Architecture** | MVC-like separation — Models, Controllers, Screens, Widgets |
-| **Dart Fundamentals** | Enums, static classes, null safety, private constructors |
-| **Reusable Components** | Custom widgets with configurable parameters |
-| **UX Best Practices** | Password visibility toggle, confirmation dialogs, snackbar feedback |
+🔸 **Custom Validator Class — Extended**
+*Approach:* Added `validateCourseTitle` and `validateCourseBody` to existing `Validators` class.
+*Benefit:* All validation centralized — no inline logic in any screen.
 
 ---
 
@@ -178,10 +272,11 @@ Registration ──pushReplacement──► Login ──pushReplacement──►
 | **Framework** | Flutter 3.x |
 | **Language** | Dart |
 | **Design System** | Material Design 3 |
-| **IDE** | VS Code / Android Studio |
-| **Emulator** | Android Emulator (Pixel 4 XL API 37) |
-| **Web Testing** | Chrome (Flutter Web) |
+| **HTTP Client** | `http` package (`^1.2.0`) |
+| **API** | JSONPlaceholder (`jsonplaceholder.typicode.com`) |
+| **IDE** | VS Code 1.121 |
 | **Version Control** | Git / GitHub |
+| **Testing Platforms** | Android Emulator, Chrome (Flutter Web) |
 
 ---
 
@@ -198,17 +293,22 @@ Registration ──pushReplacement──► Login ──pushReplacement──►
    cd app
    ```
 
-3. **Install dependencies:**
+3. **Checkout the feature branch:**
+   ```bash
+   git checkout feature/course-api-integration
+   ```
+
+4. **Install dependencies:**
    ```bash
    flutter pub get
    ```
 
-4. **Run on emulator or device:**
+5. **Run on Android emulator:**
    ```bash
    flutter run
    ```
 
-5. **Run on Chrome (web):**
+6. **Run on Chrome (web):**
    ```bash
    flutter run -d chrome
    ```
@@ -216,6 +316,8 @@ Registration ──pushReplacement──► Login ──pushReplacement──►
 ---
 
 ## 🎯 Assessment Checklist
+
+### Original Requirements
 
 | **Requirement** | **Status** |
 |-----------------|-----------|
@@ -238,15 +340,36 @@ Registration ──pushReplacement──► Login ──pushReplacement──►
 | Clean folder structure | ✅ MVC-like |
 | Runs without errors | ✅ Verified |
 
+### Extension Requirements — CRUD API Integration
+
+| **Requirement** | **Status** |
+|-----------------|-----------|
+| Fetch courses from API (GET) | ✅ `/posts?_limit=20` |
+| Display title, ID, description | ✅ Card with #ID badge |
+| Loading indicator while fetching | ✅ CircularProgressIndicator |
+| Handle error states with retry | ✅ Error screen + Retry button |
+| Add course via API (POST) | ✅ With form validation |
+| Update UI after POST | ✅ Inserted at top of list |
+| Edit existing course (PUT) | ✅ Pre-filled form |
+| Reflect update in UI | ✅ List updated in-place |
+| Delete course (DELETE) | ✅ With confirmation dialog |
+| Remove from UI after DELETE | ✅ Removed from local list |
+| Separate service layer | ✅ `CourseService` class |
+| API logic separated from UI | ✅ Clean separation |
+| Loading/success/error states | ✅ `LoadState` enum |
+| Branch: `feature/course-api-integration` | ✅ Pushed to GitHub |
+
 ---
 
 ## 🏁 Summary
 
-This project consolidates a complete **multi-screen Flutter application** — demonstrating **professional development practices** from **architecture design** to **form validation** to **navigation management**.
+This project consolidates a complete **multi-screen Flutter application** with **REST API integration** — demonstrating professional development practices from **architecture design** to **form validation** to **navigation management** to **full CRUD operations**.
 
-It validates expertise in **Flutter UI development**, **Dart programming**, **state management**, **input validation**, and **clean code architecture** following modern mobile development standards.
+It validates expertise in **Flutter UI development**, **Dart programming**, **state management**, **input validation**, **REST API integration**, **service layer architecture**, and **clean code** following modern mobile development standards.
 
 📚 Built with a focus on **code quality**, **reusability**, and **interview readiness** — ready for live demonstration and code review.
+
+---
 
 ## 👤 Author
 
@@ -254,3 +377,5 @@ It validates expertise in **Flutter UI development**, **Dart programming**, **st
 |---|---|
 | **Name** | Muhammad Maaz Khan |
 | **ID** | SE-221053 |
+| **Branch** | `feature/course-api-integration` |
+| **API** | JSONPlaceholder — https://jsonplaceholder.typicode.com/guide |
