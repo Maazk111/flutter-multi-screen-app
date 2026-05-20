@@ -3,6 +3,7 @@ import '../models/user_model.dart';
 import '../models/subject_model.dart';
 import 'login_screen.dart';
 import 'detail_screen.dart';
+import 'api_courses_screen.dart';   // ← NEW IMPORT
 
 class DashboardScreen extends StatelessWidget {
   final UserModel user;
@@ -114,7 +115,7 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // User Info Card
+            // ── User Info Card ──────────────────────────────────────────────
             Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
@@ -164,8 +165,47 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
 
+            const SizedBox(height: 16),
+
+            // ── API Courses Navigation Card (NEW) ───────────────────────────
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                leading: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.indigo.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.cloud_sync, color: Colors.indigo),
+                ),
+                title: const Text(
+                  'API Courses',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                subtitle: const Text('Fetch, add, edit & delete via REST API'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ApiCoursesScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
+
             const SizedBox(height: 24),
 
+            // ── My Subjects ─────────────────────────────────────────────────
             const Text(
               'My Subjects',
               style: TextStyle(
@@ -175,7 +215,6 @@ class DashboardScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // Subject List
             Expanded(
               child: ListView.builder(
                 itemCount: _subjects.length,
@@ -209,7 +248,8 @@ class DashboardScreen extends StatelessWidget {
                           color: Colors.grey[600],
                         ),
                       ),
-                      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                      trailing:
+                          const Icon(Icons.arrow_forward_ios, size: 16),
                       onTap: () {
                         Navigator.push(
                           context,

@@ -146,7 +146,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: DropdownButtonFormField<Gender>(
-                  value: _selectedGender,
+                  initialValue: _selectedGender,
                   decoration: InputDecoration(
                     labelText: 'Gender',
                     border: OutlineInputBorder(

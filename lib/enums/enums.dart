@@ -14,3 +14,10 @@ enum Gender {
     }
   }
 }
+
+/// Represents the three possible states of any async API operation.
+enum LoadState {
+  loading,
+  success,
+  error,
+}

@@ -55,4 +55,29 @@ class Validators {
     }
     return null;
   }
+
+  // ── API Course Validators ──────────────────────────────────────────────────
+
+  static String? validateCourseTitle(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Course title is required';
+    }
+    if (value.trim().length < 3) {
+      return 'Title must be at least 3 characters';
+    }
+    if (value.trim().length > 100) {
+      return 'Title must not exceed 100 characters';
+    }
+    return null;
+  }
+
+  static String? validateCourseBody(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Course description is required';
+    }
+    if (value.trim().length < 10) {
+      return 'Description must be at least 10 characters';
+    }
+    return null;
+  }
 }
